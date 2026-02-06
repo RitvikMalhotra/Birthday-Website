@@ -25,7 +25,34 @@ const ESPRESSO_LYRIC_START = 0; // Start from the beginning
 if (bgMusic) {
   bgMusic.volume = 0.65;
   bgMusic.loop = true;
+  
+  // Try to autoplay immediately when page loads
+  bgMusic.currentTime = 0;
+  bgMusic.play().then(() => {
+    if (musicToggle) musicToggle.classList.add('visible');
+    updateMusicUI();
+  }).catch(() => {
+    // Autoplay blocked by browser — will start on first user interaction
+  });
 }
+
+// Fallback: start music on the very first user interaction
+let musicStarted = false;
+function tryStartMusic() {
+  if (musicStarted || !bgMusic) return;
+  if (bgMusic.paused) {
+    bgMusic.currentTime = 0;
+    bgMusic.play().then(() => {
+      musicStarted = true;
+      if (musicToggle) musicToggle.classList.add('visible');
+      updateMusicUI();
+    }).catch(() => {});
+  } else {
+    musicStarted = true;
+  }
+}
+document.addEventListener('click', tryStartMusic, { once: false });
+document.addEventListener('touchstart', tryStartMusic, { once: false });
 
 function updateMusicUI() {
   if (!bgMusic || !musicToggle) return;
@@ -618,10 +645,6 @@ document.body.addEventListener("click", (e) => {
   if (currentScene === "cake") {
     transitionToScene("cake", "letter");
     currentScene = "letter";
-    
-    // Start music from the very beginning
-    if (musicToggle) musicToggle.classList.add('visible');
-    startEspresso();
     
     if (!letterStarted) {
       letterStarted = true;
