@@ -442,7 +442,7 @@ const picData = {
   "1": {
     title: "Things I Love about You:",
     lines: [
-      "Your smile",
+      "You're smile",
       "Your beautiful and gorgeous body",
       "Your Personality",
       "Your taste in every single thing I can imagine"
@@ -493,11 +493,17 @@ const picData = {
     ],
     type: "paragraph"
   },
-  "7": null, // no text for pic7
+  "7": {
+    title: "",
+    lines: [
+      "We may fight but its always worth it when we come back to each other in the end My Jaanu"
+    ],
+    type: "paragraph"
+  },
   "8": {
     title: "",
     lines: [
-      "We may fight but it's always worth it when we come back to each other in the end My Jaanu"
+      "And Always remember this Darling, I am only yours and yours forever and You are only and Only Mine Forever"
     ],
     type: "paragraph"
   }

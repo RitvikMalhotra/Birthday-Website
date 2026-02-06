@@ -559,8 +559,8 @@ body {
 
 .collage-item {
   position: absolute;
-  width: 190px;
-  height: 250px;
+  width: 220px;
+  height: 290px;
   border-radius: 16px;
   overflow: hidden;
   transform-style: preserve-3d;
@@ -605,14 +605,14 @@ body {
   transform: rotate(0deg) scale(1) !important;
 }
 
-.collage-item.settled:nth-child(1) { top: 12%; left: 4%;  }
-.collage-item.settled:nth-child(2) { top: 12%; left: 27%; }
-.collage-item.settled:nth-child(3) { top: 12%; right: 27%; }
-.collage-item.settled:nth-child(4) { top: 12%; right: 4%;  }
-.collage-item.settled:nth-child(5) { bottom: 10%; left: 4%;  }
-.collage-item.settled:nth-child(6) { bottom: 10%; left: 27%; }
-.collage-item.settled:nth-child(7) { bottom: 10%; right: 27%; }
-.collage-item.settled:nth-child(8) { bottom: 10%; right: 4%;  }
+.collage-item.settled:nth-child(1) { top: 10%; left: 3%;  }
+.collage-item.settled:nth-child(2) { top: 10%; left: 26%; }
+.collage-item.settled:nth-child(3) { top: 10%; right: 26%; }
+.collage-item.settled:nth-child(4) { top: 10%; right: 3%;  }
+.collage-item.settled:nth-child(5) { bottom: 6%; left: 3%;  }
+.collage-item.settled:nth-child(6) { bottom: 6%; left: 26%; }
+.collage-item.settled:nth-child(7) { bottom: 6%; right: 26%; }
+.collage-item.settled:nth-child(8) { bottom: 6%; right: 3%;  }
 
 .collage-item.settled:hover {
   transform: scale(1.08) translateY(-5px) !important;
@@ -690,8 +690,8 @@ body {
 
 .pic-overlay-image {
   flex-shrink: 0;
-  width: 300px;
-  height: 400px;
+  width: 340px;
+  height: 450px;
   border-radius: 20px;
   overflow: hidden;
   box-shadow:
@@ -1037,18 +1037,18 @@ body {
   }
   
   .collage-item {
-    width: 120px;
-    height: 155px;
+    width: 140px;
+    height: 180px;
   }
   
   .collage-item.settled:nth-child(1) { top: 10%; left: 2%; }
   .collage-item.settled:nth-child(2) { top: 10%; left: 27%; }
   .collage-item.settled:nth-child(3) { top: 10%; right: 27%; }
   .collage-item.settled:nth-child(4) { top: 10%; right: 2%; }
-  .collage-item.settled:nth-child(5) { bottom: 14%; left: 2%; }
-  .collage-item.settled:nth-child(6) { bottom: 14%; left: 27%; }
-  .collage-item.settled:nth-child(7) { bottom: 14%; right: 27%; }
-  .collage-item.settled:nth-child(8) { bottom: 14%; right: 2%; }
+  .collage-item.settled:nth-child(5) { bottom: 12%; left: 2%; }
+  .collage-item.settled:nth-child(6) { bottom: 12%; left: 27%; }
+  .collage-item.settled:nth-child(7) { bottom: 12%; right: 27%; }
+  .collage-item.settled:nth-child(8) { bottom: 12%; right: 2%; }
   
   .collage-title {
     font-size: 1.8rem;
