@@ -24,6 +24,7 @@ const ESPRESSO_LYRIC_START = 0; // Start from the beginning
 
 if (bgMusic) {
   bgMusic.volume = 0.65;
+  bgMusic.loop = true;
 }
 
 function updateMusicUI() {
@@ -642,10 +643,9 @@ document.body.addEventListener("click", (e) => {
   else if (currentScene === "collage") {
     // If overlay is open, don't close the show
     if (overlayOpen) return;
-    // Stop animations, fade music, close curtains
+    // Stop animations, close curtains — music keeps playing
     stopBalloons();
     stopHearts();
-    fadeOutMusic(1500);
     currentScene = "closing";
     closeCurtains();
   }
