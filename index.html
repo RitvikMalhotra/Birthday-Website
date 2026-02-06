@@ -14,6 +14,16 @@
   <!-- SPARKLE CURSOR -->
   <div id="sparkle-cursor"></div>
 
+  <!-- WELCOME SPLASH — tapping this starts the music instantly -->
+  <div id="splash-screen">
+    <div class="splash-content">
+      <div class="splash-sparkle">✦</div>
+      <h1 class="splash-title">A Special Day ✨</h1>
+      <p class="splash-subtitle">Tap anywhere to begin</p>
+      <div class="splash-sparkle bottom">✦</div>
+    </div>
+  </div>
+
   <!-- PARALLAX BACKGROUND LAYERS -->
   <div class="parallax-container">
     <div class="parallax-layer stars-layer" data-speed="0.1"></div>
@@ -22,7 +32,7 @@
   </div>
 
   <!-- SCENE 1: CAKE -->
-  <section id="scene-cake" class="scene active">
+  <section id="scene-cake" class="scene">
     <div class="scene-content">
       <div id="birthday-banner">
         <span class="banner-text">✨ HAPPY BIRTHDAY ✨</span>
@@ -135,7 +145,7 @@
   </div>
 
   <!-- AUDIO: Espresso by Sabrina Carpenter -->
-  <audio id="bg-music" src="audio/Sabrina_Carpenter_-_Espresso_(mp3.pm).mp3" preload="auto" autoplay loop></audio>
+  <audio id="bg-music" src="audio/Sabrina_Carpenter_-_Espresso_(mp3.pm).mp3" preload="auto"></audio>
 
   <!-- Now Playing indicator -->
   <div id="now-playing" class="now-playing hidden">
@@ -148,6 +158,6 @@
     <span class="music-icon">▶</span>
   </button>
 
-  <script src="script.js?v=13"></script>
+  <script src="script.js?v=14"></script>
 </body>
 </html>

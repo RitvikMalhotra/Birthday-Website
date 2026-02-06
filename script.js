@@ -36,50 +36,39 @@ function updateMusicUI() {
 
 if (bgMusic) {
   bgMusic.loop = true;
-  
-  // Strategy: try playing with sound immediately
   bgMusic.volume = 0.65;
-  bgMusic.currentTime = 0;
-  const autoplayAttempt = bgMusic.play();
-  
-  if (autoplayAttempt) {
-    autoplayAttempt.then(() => {
-      // Autoplay with sound worked!
-      musicStarted = true;
-      if (musicToggle) musicToggle.classList.add('visible');
-      updateMusicUI();
-    }).catch(() => {
-      // Blocked — try muted autoplay so at least it starts
-      bgMusic.muted = true;
-      bgMusic.play().then(() => {
-        if (musicToggle) musicToggle.classList.add('visible');
-        updateMusicUI();
-      }).catch(() => {});
-    });
-  }
 }
 
 // Show music button immediately
 if (musicToggle) musicToggle.classList.add('visible');
 
-// Unmute and ensure playing on first user interaction
+// ==========================================
+// SPLASH SCREEN — starts music on tap
+// ==========================================
+const splashScreen = document.getElementById('splash-screen');
 let musicStarted = false;
-function tryStartMusic() {
-  if (musicStarted || !bgMusic) return;
-  bgMusic.muted = false;
-  bgMusic.volume = 0.65;
-  if (bgMusic.paused) {
+
+function dismissSplash() {
+  if (!splashScreen) return;
+  
+  // Start music immediately on this user gesture
+  if (bgMusic && !musicStarted) {
     bgMusic.currentTime = 0;
+    bgMusic.play().then(() => {
+      musicStarted = true;
+      updateMusicUI();
+    }).catch(() => {});
   }
-  bgMusic.play().then(() => {
-    musicStarted = true;
-    updateMusicUI();
-  }).catch(() => {});
+  
+  // Hide splash, show cake scene
+  splashScreen.classList.add('hidden');
+  scenes.cake.classList.add('active');
 }
 
-['click', 'touchstart', 'keydown'].forEach(evt => {
-  document.addEventListener(evt, tryStartMusic, { capture: true });
-});
+if (splashScreen) {
+  splashScreen.addEventListener('click', dismissSplash);
+  splashScreen.addEventListener('touchstart', dismissSplash);
+}
 
 function fadeOutMusic(duration = 1200) {
   if (!bgMusic || bgMusic.paused) return;

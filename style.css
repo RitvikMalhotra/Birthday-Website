@@ -26,6 +26,69 @@ body {
   cursor: none;
 }
 
+/* ==========================================
+   SPLASH / WELCOME SCREEN
+   ========================================== */
+#splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(ellipse at center, var(--deep-plum) 0%, var(--midnight-purple) 70%);
+  cursor: pointer;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#splash-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.splash-content {
+  text-align: center;
+  animation: splashFloat 3s ease-in-out infinite;
+}
+
+.splash-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--blush-pink), var(--champagne-gold), var(--rose-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 20px rgba(248, 200, 220, 0.4));
+}
+
+.splash-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  color: var(--soft-lavender);
+  font-style: italic;
+  animation: hintPulse 2s ease-in-out infinite;
+}
+
+.splash-sparkle {
+  font-size: 2rem;
+  color: var(--sparkle-gold);
+  margin-bottom: 15px;
+  animation: decorationSpin 3s linear infinite;
+}
+
+.splash-sparkle.bottom {
+  margin-bottom: 0;
+  margin-top: 15px;
+}
+
+@keyframes splashFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
 /* Custom Sparkle Cursor */
 #sparkle-cursor {
   position: fixed;
