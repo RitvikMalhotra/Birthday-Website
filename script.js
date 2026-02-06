@@ -20,7 +20,7 @@ let heartsInterval = null;
 const bgMusic = document.getElementById('bg-music');
 const musicToggle = document.getElementById('music-toggle');
 const nowPlaying = document.getElementById('now-playing');
-const ESPRESSO_LYRIC_START = 29; // "Thinkin bout me baby I know..."
+const ESPRESSO_LYRIC_START = 0; // Start from the beginning
 
 if (bgMusic) {
   bgMusic.volume = 0.65;
