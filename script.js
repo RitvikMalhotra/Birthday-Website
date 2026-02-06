@@ -35,24 +35,48 @@ function updateMusicUI() {
 }
 
 if (bgMusic) {
-  bgMusic.volume = 0.65;
   bgMusic.loop = true;
+  
+  // Strategy: try playing with sound immediately
+  bgMusic.volume = 0.65;
+  bgMusic.currentTime = 0;
+  const autoplayAttempt = bgMusic.play();
+  
+  if (autoplayAttempt) {
+    autoplayAttempt.then(() => {
+      // Autoplay with sound worked!
+      musicStarted = true;
+      if (musicToggle) musicToggle.classList.add('visible');
+      updateMusicUI();
+    }).catch(() => {
+      // Blocked — try muted autoplay so at least it starts
+      bgMusic.muted = true;
+      bgMusic.play().then(() => {
+        if (musicToggle) musicToggle.classList.add('visible');
+        updateMusicUI();
+      }).catch(() => {});
+    });
+  }
 }
 
 // Show music button immediately
 if (musicToggle) musicToggle.classList.add('visible');
 
-// Start music on very first user interaction (tap/click/key)
+// Unmute and ensure playing on first user interaction
 let musicStarted = false;
 function tryStartMusic() {
   if (musicStarted || !bgMusic) return;
+  bgMusic.muted = false;
+  bgMusic.volume = 0.65;
+  if (bgMusic.paused) {
+    bgMusic.currentTime = 0;
+  }
   bgMusic.play().then(() => {
     musicStarted = true;
     updateMusicUI();
   }).catch(() => {});
 }
 
-// Listen on multiple events to catch the very first interaction
 ['click', 'touchstart', 'keydown'].forEach(evt => {
   document.addEventListener(evt, tryStartMusic, { capture: true });
 });
