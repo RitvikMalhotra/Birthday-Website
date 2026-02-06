@@ -62,35 +62,35 @@
     <div class="scene-content collage-content">
       <h2 class="collage-title">The Diva Queen �</h2>
       <div class="collage">
-        <div class="collage-item" data-tilt>
+        <div class="collage-item" data-pic="1">
           <img src="images/pic1.jpg" alt="Memory 1">
           <div class="photo-frame"></div>
         </div>
-        <div class="collage-item" data-tilt>
+        <div class="collage-item" data-pic="2">
           <img src="images/pic2.jpg" alt="Memory 2">
           <div class="photo-frame"></div>
         </div>
-        <div class="collage-item" data-tilt>
+        <div class="collage-item" data-pic="3">
           <img src="images/pic3.jpg" alt="Memory 3">
           <div class="photo-frame"></div>
         </div>
-        <div class="collage-item" data-tilt>
+        <div class="collage-item" data-pic="4">
           <img src="images/pic4.jpg" alt="Memory 4">
           <div class="photo-frame"></div>
         </div>
-        <div class="collage-item" data-tilt>
+        <div class="collage-item" data-pic="5">
           <img src="images/pic5.jpg" alt="Memory 5">
           <div class="photo-frame"></div>
         </div>
-        <div class="collage-item" data-tilt>
+        <div class="collage-item" data-pic="6">
           <img src="images/pic6.jpeg" alt="Memory 6">
           <div class="photo-frame"></div>
         </div>
-        <div class="collage-item" data-tilt>
+        <div class="collage-item" data-pic="7">
           <img src="images/pic7.jpg" alt="Memory 7">
           <div class="photo-frame"></div>
         </div>
-        <div class="collage-item" data-tilt>
+        <div class="collage-item" data-pic="8">
           <img src="images/pic8.jpg" alt="Memory 8">
           <div class="photo-frame"></div>
         </div>
@@ -98,9 +98,21 @@
       <!-- Balloons and Hearts Container -->
       <div id="balloons-container"></div>
       <div id="hearts-container"></div>
-      <p class="tap-hint collage-hint">Tap to close the show ✨</p>
+      <p class="tap-hint collage-hint">Tap on a picture ✨</p>
     </div>
   </section>
+
+  <!-- PICTURE DETAIL OVERLAY -->
+  <div id="pic-overlay" class="pic-overlay">
+    <div class="pic-overlay-backdrop"></div>
+    <div class="pic-overlay-content">
+      <div class="pic-overlay-image">
+        <img id="overlay-img" src="" alt="">
+      </div>
+      <div class="pic-overlay-text" id="overlay-text"></div>
+    </div>
+    <p class="tap-hint overlay-hint">Tap anywhere to go back ✨</p>
+  </div>
 
   <!-- CURTAIN OVERLAY -->
   <div id="curtain-overlay">
@@ -136,6 +148,6 @@
     <span class="music-icon">▶</span>
   </button>
 
-  <script src="script.js?v=2"></script>
+  <script src="script.js?v=3"></script>
 </body>
 </html>

@@ -391,28 +391,176 @@ function initCollage3D() {
   
   items.forEach(item => {
     item.addEventListener('mousemove', (e) => {
-      const rect = item.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      const rotateX = (y - centerY) / 10;
-      const rotateY = (centerX - x) / 10;
-      
-      item.style.transform = `
-        perspective(1000px)
-        rotateX(${rotateX}deg)
-        rotateY(${rotateY}deg)
-        translateZ(30px)
-        scale(1.05)
-      `;
+      if (item.classList.contains('settled')) {
+        const rect = item.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 12;
+        const rotateY = (centerX - x) / 12;
+        item.style.transform = `
+          rotate(0deg) scale(1.05)
+          perspective(1000px)
+          rotateX(${rotateX}deg)
+          rotateY(${rotateY}deg)
+        `;
+      }
     });
     
     item.addEventListener('mouseleave', () => {
-      item.style.transform = '';
+      if (item.classList.contains('settled')) {
+        item.style.transform = '';
+      }
     });
+  });
+}
+
+// ==========================================
+// COLLAGE CARD THROW + SETTLE ANIMATION
+// ==========================================
+function initCollageCards() {
+  const items = document.querySelectorAll('.collage-item');
+  
+  // After card-throw animation finishes, settle into grid
+  setTimeout(() => {
+    items.forEach((item, i) => {
+      setTimeout(() => {
+        item.classList.add('settled');
+      }, i * 80);
+    });
+  }, 1200); // Wait for throw animation to finish
+  
+  // Init 3D tilt after settle
+  setTimeout(initCollage3D, 2200);
+}
+
+// ==========================================
+// PICTURE DETAIL OVERLAY — DATA
+// ==========================================
+const picData = {
+  "1": {
+    title: "Things I Love about You:",
+    lines: [
+      "Your smile",
+      "Your beautiful and gorgeous body",
+      "Your Personality",
+      "Your taste in every single thing I can imagine"
+    ],
+    type: "list"
+  },
+  "2": {
+    title: "Our Love Language:",
+    lines: [
+      "Talks",
+      "Late night calls",
+      "Cuddles",
+      "Naughtiness hehe"
+    ],
+    type: "list"
+  },
+  "3": {
+    title: "The Little things you do that matter to me a lot:",
+    lines: [
+      "Texting me all the time",
+      "Spamming me with reels on anything",
+      "Telling me your day with so much interest and happiness",
+      "And many more.."
+    ],
+    type: "list"
+  },
+  "4": {
+    title: "We can share a dream together:",
+    lines: [
+      "Us marrying in a lovely beach or mountain",
+      "Having 2 (mayyybeee 3) beautiful and handsome babies",
+      "Raising puppies and cats",
+      "Having the best family in the whole world Jaanu"
+    ],
+    type: "list"
+  },
+  "5": {
+    title: "",
+    lines: [
+      "Your faith and belief in me and the fact that you have confidence in me and my motives makes me genuinely feel valued and heard Jaanu"
+    ],
+    type: "paragraph"
+  },
+  "6": {
+    title: "",
+    lines: [
+      "I promise you My Gorgeous Wife, no matter what I will always be there for you.. I will always love you..always cherish you..do my very best as your loyal and loving husband to make your life a proper paradise"
+    ],
+    type: "paragraph"
+  },
+  "7": null, // no text for pic7
+  "8": {
+    title: "",
+    lines: [
+      "We may fight but it's always worth it when we come back to each other in the end My Jaanu"
+    ],
+    type: "paragraph"
+  }
+};
+
+let overlayOpen = false;
+
+function openPicOverlay(picNum, imgSrc) {
+  const overlay = document.getElementById('pic-overlay');
+  const overlayImg = document.getElementById('overlay-img');
+  const overlayText = document.getElementById('overlay-text');
+  
+  overlayImg.src = imgSrc;
+  overlayText.innerHTML = '';
+  
+  const data = picData[picNum];
+  if (data) {
+    let html = '';
+    if (data.title) {
+      html += `<h3>${data.title}</h3>`;
+    }
+    if (data.type === 'list') {
+      html += '<ol>';
+      data.lines.forEach(line => {
+        html += `<li>${line}</li>`;
+      });
+      html += '</ol>';
+    } else {
+      data.lines.forEach(line => {
+        html += `<p>${line}</p>`;
+      });
+    }
+    overlayText.innerHTML = html;
+  }
+  
+  overlay.classList.add('active');
+  overlayOpen = true;
+}
+
+function closePicOverlay() {
+  const overlay = document.getElementById('pic-overlay');
+  overlay.classList.remove('active');
+  overlayOpen = false;
+}
+
+// Attach click listeners to collage items
+function initCollageClicks() {
+  const items = document.querySelectorAll('.collage-item');
+  items.forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!item.classList.contains('settled')) return;
+      const picNum = item.getAttribute('data-pic');
+      const imgSrc = item.querySelector('img').src;
+      openPicOverlay(picNum, imgSrc);
+    });
+  });
+  
+  // Close overlay on tap
+  const overlay = document.getElementById('pic-overlay');
+  overlay.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closePicOverlay();
   });
 }
 
@@ -472,11 +620,12 @@ document.body.addEventListener("click", (e) => {
     transitionToScene("letter", "collage");
     currentScene = "collage";
     
-    // Start balloons, hearts, and ESPRESSO 🎵
+    // Start balloons, hearts, cards, and ESPRESSO 🎵
     setTimeout(() => {
       startBalloons();
       startHearts();
-      initCollage3D();
+      initCollageCards();
+      initCollageClicks();
       
       // Show music button & start Espresso
       if (musicToggle) musicToggle.classList.add('visible');
@@ -484,6 +633,8 @@ document.body.addEventListener("click", (e) => {
     }, 800);
   }
   else if (currentScene === "collage") {
+    // If overlay is open, don't close the show
+    if (overlayOpen) return;
     // Stop animations, fade music, close curtains
     stopBalloons();
     stopHearts();
