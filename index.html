@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Jaanu 💖</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- SPARKLE CURSOR -->
+  <div id="sparkle-cursor"></div>
+
+  <!-- PARALLAX BACKGROUND LAYERS -->
+  <div class="parallax-container">
+    <div class="parallax-layer stars-layer" data-speed="0.1"></div>
+    <div class="parallax-layer sparkle-layer" data-speed="0.2"></div>
+    <div class="parallax-layer floating-elements" data-speed="0.3"></div>
+  </div>
+
+  <!-- SCENE 1: CAKE -->
+  <section id="scene-cake" class="scene active">
+    <div class="scene-content">
+      <div id="birthday-banner">
+        <span class="banner-text">✨ HAPPY BIRTHDAY ✨</span>
+        <div class="banner-sparkles"></div>
+      </div>
+
+      <div class="cake-container">
+        <div id="cake-stack">
+          <div id="candles"></div>
+        </div>
+        <div class="cake-glow"></div>
+      </div>
+
+      <h1 id="birthday-text"></h1>
+      <p class="tap-hint">Tap anywhere to continue ✨</p>
+    </div>
+  </section>
+
+  <!-- SCENE 2: LETTER -->
+  <section id="scene-letter" class="scene">
+    <div class="scene-content">
+      <div class="letter-box">
+        <div class="letter-decoration top-left">✦</div>
+        <div class="letter-decoration top-right">✦</div>
+        <div class="letter-decoration bottom-left">✦</div>
+        <div class="letter-decoration bottom-right">✦</div>
+        <h2>For You, Jaanu <span class="heart-emoji">💌</span></h2>
+        <div class="letter-divider"></div>
+        <div id="letter-content"></div>
+      </div>
+      <p class="tap-hint">Tap to see yourself ✨</p>
+    </div>
+  </section>
+
+  <!-- SCENE 3: COLLAGE -->
+  <section id="scene-collage" class="scene">
+    <div class="scene-content collage-content">
+      <h2 class="collage-title">Your Beautiful Self 💫</h2>
+      <div class="collage">
+        <div class="collage-item" data-tilt>
+          <img src="images/pic1.jpg" alt="Memory 1">
+          <div class="photo-frame"></div>
+        </div>
+        <div class="collage-item" data-tilt>
+          <img src="images/pic2.jpg" alt="Memory 2">
+          <div class="photo-frame"></div>
+        </div>
+        <div class="collage-item" data-tilt>
+          <img src="images/pic3.jpg" alt="Memory 3">
+          <div class="photo-frame"></div>
+        </div>
+        <div class="collage-item" data-tilt>
+          <img src="images/pic4.jpg" alt="Memory 4">
+          <div class="photo-frame"></div>
+        </div>
+      </div>
+      <!-- Balloons and Hearts Container -->
+      <div id="balloons-container"></div>
+      <div id="hearts-container"></div>
+      <p class="tap-hint collage-hint">Tap to close the show ✨</p>
+    </div>
+  </section>
+
+  <!-- CURTAIN OVERLAY -->
+  <div id="curtain-overlay">
+    <div class="curtain curtain-left">
+      <div class="curtain-fold"></div>
+      <div class="curtain-fold"></div>
+      <div class="curtain-fold"></div>
+    </div>
+    <div class="curtain curtain-right">
+      <div class="curtain-fold"></div>
+      <div class="curtain-fold"></div>
+      <div class="curtain-fold"></div>
+    </div>
+    <div class="curtain-rod"></div>
+    <div class="final-message">
+      <h1>Thank you for being here 💖</h1>
+      <p>The show has ended...</p>
+      <p class="closing-note">Close this tab whenever you're ready ✨</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
