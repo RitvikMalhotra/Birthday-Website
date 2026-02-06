@@ -49,7 +49,7 @@ const splashScreen = document.getElementById('splash-screen');
 let musicStarted = false;
 
 function dismissSplash() {
-  if (!splashScreen) return;
+  if (!splashScreen || splashScreen.classList.contains('hidden')) return;
   
   // Start music immediately on this user gesture
   if (bgMusic && !musicStarted) {
@@ -62,12 +62,20 @@ function dismissSplash() {
   
   // Hide splash, show cake scene
   splashScreen.classList.add('hidden');
-  scenes.cake.classList.add('active');
+  setTimeout(() => {
+    scenes.cake.classList.add('active');
+  }, 100);
 }
 
 if (splashScreen) {
-  splashScreen.addEventListener('click', dismissSplash);
-  splashScreen.addEventListener('touchstart', dismissSplash);
+  splashScreen.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dismissSplash();
+  });
+  splashScreen.addEventListener('touchstart', (e) => {
+    e.stopPropagation();
+    dismissSplash();
+  });
 }
 
 function fadeOutMusic(duration = 1200) {
@@ -627,6 +635,9 @@ document.head.appendChild(sceneExitStyle);
 // MAIN CLICK HANDLER
 // ==========================================
 document.body.addEventListener("click", (e) => {
+  // Ignore clicks while splash screen is visible
+  if (splashScreen && !splashScreen.classList.contains('hidden')) return;
+  
   // Create click burst effect
   createClickBurst(e.clientX, e.clientY);
   
