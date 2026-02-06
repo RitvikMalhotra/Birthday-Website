@@ -15,6 +15,78 @@ let balloonsInterval = null;
 let heartsInterval = null;
 
 // ==========================================
+// ESPRESSO MUSIC CONTROLLER
+// ==========================================
+const bgMusic = document.getElementById('bg-music');
+const musicToggle = document.getElementById('music-toggle');
+const nowPlaying = document.getElementById('now-playing');
+const ESPRESSO_LYRIC_START = 29; // "Thinkin bout me baby I know..."
+
+if (bgMusic) {
+  bgMusic.volume = 0.65;
+}
+
+function updateMusicUI() {
+  if (!bgMusic || !musicToggle) return;
+  const playing = !bgMusic.paused;
+  musicToggle.querySelector('.music-icon').textContent = playing ? '⏸' : '▶';
+  musicToggle.classList.toggle('playing', playing);
+  musicToggle.setAttribute('aria-label', playing ? 'Pause music' : 'Play music');
+  
+  if (nowPlaying) {
+    nowPlaying.classList.toggle('hidden', !playing);
+    nowPlaying.classList.toggle('visible', playing);
+  }
+}
+
+function startEspresso() {
+  if (!bgMusic) return;
+  bgMusic.currentTime = ESPRESSO_LYRIC_START;
+  bgMusic.play().then(() => {
+    updateMusicUI();
+  }).catch(() => {
+    // Autoplay blocked — user can press the button
+    updateMusicUI();
+  });
+}
+
+function fadeOutMusic(duration = 1200) {
+  if (!bgMusic || bgMusic.paused) return;
+  const startVol = bgMusic.volume;
+  const steps = 25;
+  const stepTime = duration / steps;
+  let i = 0;
+  const fade = setInterval(() => {
+    i++;
+    bgMusic.volume = Math.max(0, startVol * (1 - i / steps));
+    if (i >= steps) {
+      clearInterval(fade);
+      bgMusic.pause();
+      bgMusic.volume = startVol;
+      updateMusicUI();
+    }
+  }, stepTime);
+}
+
+// Music toggle button click
+if (musicToggle) {
+  musicToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!bgMusic) return;
+    if (bgMusic.paused) {
+      // If hasn't played yet, start from lyric point
+      if (bgMusic.currentTime < ESPRESSO_LYRIC_START) {
+        bgMusic.currentTime = ESPRESSO_LYRIC_START;
+      }
+      bgMusic.play().catch(() => {});
+    } else {
+      bgMusic.pause();
+    }
+    updateMusicUI();
+  });
+}
+
+// ==========================================
 // SPARKLE CURSOR
 // ==========================================
 const cursor = document.getElementById('sparkle-cursor');
@@ -400,17 +472,22 @@ document.body.addEventListener("click", (e) => {
     transitionToScene("letter", "collage");
     currentScene = "collage";
     
-    // Start balloons and hearts
+    // Start balloons, hearts, and ESPRESSO 🎵
     setTimeout(() => {
       startBalloons();
       startHearts();
       initCollage3D();
+      
+      // Show music button & start Espresso
+      if (musicToggle) musicToggle.classList.add('visible');
+      startEspresso();
     }, 800);
   }
   else if (currentScene === "collage") {
-    // Stop animations and close curtains
+    // Stop animations, fade music, close curtains
     stopBalloons();
     stopHearts();
+    fadeOutMusic(1500);
     currentScene = "closing";
     closeCurtains();
   }
