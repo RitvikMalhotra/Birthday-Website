@@ -601,6 +601,11 @@ body {
   background-clip: text;
   z-index: 10;
   animation: titleFloat 3s ease-in-out infinite;
+  display: none;
+}
+
+#scene-collage.active .collage-title {
+  display: block;
 }
 
 @keyframes titleFloat {
