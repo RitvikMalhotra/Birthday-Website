@@ -619,6 +619,10 @@ document.body.addEventListener("click", (e) => {
     transitionToScene("cake", "letter");
     currentScene = "letter";
     
+    // Start music from the very beginning
+    if (musicToggle) musicToggle.classList.add('visible');
+    startEspresso();
+    
     if (!letterStarted) {
       letterStarted = true;
       setTimeout(typeLetter, 600);
@@ -628,16 +632,12 @@ document.body.addEventListener("click", (e) => {
     transitionToScene("letter", "collage");
     currentScene = "collage";
     
-    // Start balloons, hearts, cards, and ESPRESSO 🎵
+    // Start balloons, hearts, cards
     setTimeout(() => {
       startBalloons();
       startHearts();
       initCollageCards();
       initCollageClicks();
-      
-      // Show music button & start Espresso
-      if (musicToggle) musicToggle.classList.add('visible');
-      startEspresso();
     }, 800);
   }
   else if (currentScene === "collage") {
