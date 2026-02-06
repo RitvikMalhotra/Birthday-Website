@@ -20,39 +20,6 @@ let heartsInterval = null;
 const bgMusic = document.getElementById('bg-music');
 const musicToggle = document.getElementById('music-toggle');
 const nowPlaying = document.getElementById('now-playing');
-const ESPRESSO_LYRIC_START = 0; // Start from the beginning
-
-if (bgMusic) {
-  bgMusic.volume = 0.65;
-  bgMusic.loop = true;
-  
-  // Try to autoplay immediately when page loads
-  bgMusic.currentTime = 0;
-  bgMusic.play().then(() => {
-    if (musicToggle) musicToggle.classList.add('visible');
-    updateMusicUI();
-  }).catch(() => {
-    // Autoplay blocked by browser — will start on first user interaction
-  });
-}
-
-// Fallback: start music on the very first user interaction
-let musicStarted = false;
-function tryStartMusic() {
-  if (musicStarted || !bgMusic) return;
-  if (bgMusic.paused) {
-    bgMusic.currentTime = 0;
-    bgMusic.play().then(() => {
-      musicStarted = true;
-      if (musicToggle) musicToggle.classList.add('visible');
-      updateMusicUI();
-    }).catch(() => {});
-  } else {
-    musicStarted = true;
-  }
-}
-document.addEventListener('click', tryStartMusic, { once: false });
-document.addEventListener('touchstart', tryStartMusic, { once: false });
 
 function updateMusicUI() {
   if (!bgMusic || !musicToggle) return;
@@ -67,16 +34,28 @@ function updateMusicUI() {
   }
 }
 
-function startEspresso() {
-  if (!bgMusic) return;
-  bgMusic.currentTime = ESPRESSO_LYRIC_START;
-  bgMusic.play().then(() => {
-    updateMusicUI();
-  }).catch(() => {
-    // Autoplay blocked — user can press the button
-    updateMusicUI();
-  });
+if (bgMusic) {
+  bgMusic.volume = 0.65;
+  bgMusic.loop = true;
 }
+
+// Show music button immediately
+if (musicToggle) musicToggle.classList.add('visible');
+
+// Start music on very first user interaction (tap/click/key)
+let musicStarted = false;
+function tryStartMusic() {
+  if (musicStarted || !bgMusic) return;
+  bgMusic.play().then(() => {
+    musicStarted = true;
+    updateMusicUI();
+  }).catch(() => {});
+}
+
+// Listen on multiple events to catch the very first interaction
+['click', 'touchstart', 'keydown'].forEach(evt => {
+  document.addEventListener(evt, tryStartMusic, { capture: true });
+});
 
 function fadeOutMusic(duration = 1200) {
   if (!bgMusic || bgMusic.paused) return;
@@ -102,10 +81,6 @@ if (musicToggle) {
     e.stopPropagation();
     if (!bgMusic) return;
     if (bgMusic.paused) {
-      // If hasn't played yet, start from lyric point
-      if (bgMusic.currentTime < ESPRESSO_LYRIC_START) {
-        bgMusic.currentTime = ESPRESSO_LYRIC_START;
-      }
       bgMusic.play().catch(() => {});
     } else {
       bgMusic.pause();
