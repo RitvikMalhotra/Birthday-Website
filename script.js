@@ -422,17 +422,18 @@ function initCollage3D() {
 function initCollageCards() {
   const items = document.querySelectorAll('.collage-item');
   
-  // After card-throw animation finishes, settle into grid
+  // After card-deal animation finishes (8 cards × 0.1s stagger + 0.5s anim ≈ 1.3s),
+  // smoothly distribute into 4×2 grid one by one
   setTimeout(() => {
     items.forEach((item, i) => {
       setTimeout(() => {
         item.classList.add('settled');
-      }, i * 80);
+      }, i * 150); // Staggered distribute — one card slides out every 150ms
     });
-  }, 1200); // Wait for throw animation to finish
+  }, 1500); // Wait for all cards to land in center
   
-  // Init 3D tilt after settle
-  setTimeout(initCollage3D, 2200);
+  // Init 3D tilt after all cards have settled
+  setTimeout(initCollage3D, 3200);
 }
 
 // ==========================================
