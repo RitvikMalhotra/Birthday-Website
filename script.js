@@ -490,7 +490,8 @@ const picData = {
       "Texting me all the time",
       "Spamming me with reels on anything",
       "Telling me your day with so much interest and happiness",
-      "And many more.."
+      "The way you always try your best to include me in ur time even when you're busy",
+      "and so much more..."
     ],
     type: "list"
   },
@@ -500,7 +501,8 @@ const picData = {
       "Us marrying in a lovely beach or mountain",
       "Having 2 (mayyybeee 3) beautiful and handsome babies",
       "Raising puppies and cats",
-      "Having the best family in the whole world Jaanu"
+      "Having the best family in the whole world Jaanu",
+      "And growing old together and counting each other's wrinkles as a competition"
     ],
     type: "list"
   },
